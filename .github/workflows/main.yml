@@ -17,6 +17,7 @@ env:
   USER: ${{ github.actor }}
   REPO: ${{ github.repository }}
   OWNER: ${{ github.repository_owner }}
+  ACTOR: ${{ github.triggering_actor }}
 
 jobs:
   # Build job
@@ -37,10 +38,11 @@ jobs:
         with:
           pre_build_commands: 'make build'
           token: ${{ secrets.JEKYLL_GITHUB_TOKEN }}
+          owner: ${{ secrets.JEKYLL_GITHUB_OWNER }}
 
       - name: 💎 Build on Windows
         if: runner.os == 'Windows'
         uses: eq19/maps@v1
         with:
           dotnet-version: '3.1.x'
-          token: ${{ secrets.JEKYLL_GITHUB_TOKEN }}
+          owner: ${{ secrets.JEKYLL_GITHUB_OWNER }}
